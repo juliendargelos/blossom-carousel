@@ -3,8 +3,10 @@ import {
   onMounted,
   onBeforeUnmount,
   ref,
+  toRef,
   watch,
   type App,
+  type MaybeRef,
   type Ref,
 } from "vue";
 import {
@@ -60,7 +62,10 @@ const INITIAL: NavigationState = {
  * navigation state. Never touches a Blossom instance, so it works even when
  * Blossom isn't initialized.
  */
-export function useNavigation(forId: Ref<string>): Ref<NavigationState> {
+export function useNavigation(
+  forId: MaybeRef<string | undefined>,
+): Ref<NavigationState> {
+  const forIdRef = toRef(forId);
   // Captured once, in setup scope: getCurrentInstance() returns null once we're
   // inside a watch callback or lifecycle-hook microtask, so it can't be read lazily.
   const app = getCurrentInstance()?.appContext.app;
@@ -70,7 +75,7 @@ export function useNavigation(forId: Ref<string>): Ref<NavigationState> {
     return { ...INITIAL, count };
   }
 
-  const state = ref<NavigationState>(seededState(forId.value));
+  const state = ref<NavigationState>(seededState(forIdRef.value));
   let cleanup: (() => void) | null = null;
   // Distinguishes "not yet mounted" from "attach() ran but found nothing", so a
   // pre-mount `forId` change doesn't get mistaken for a live attachment to retry.
@@ -101,7 +106,7 @@ export function useNavigation(forId: Ref<string>): Ref<NavigationState> {
   }
 
   watch(
-    forId,
+    forIdRef,
     (id) => {
       if (mounted) {
         attach(id);
@@ -114,7 +119,7 @@ export function useNavigation(forId: Ref<string>): Ref<NavigationState> {
 
   onMounted(() => {
     mounted = true;
-    attach(forId.value);
+    attach(forIdRef.value);
   });
   onBeforeUnmount(detach);
 
