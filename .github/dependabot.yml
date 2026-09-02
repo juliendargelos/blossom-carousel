@@ -1,0 +1,17 @@
+# pnpm workspaces: configure only the repo root. Dependabot updates
+# workspace packages from the root lockfile; listing /packages/* causes
+# no-change errors. See https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 10
+    groups:
+      dev-dependencies:
+        dependency-type: development
+        update-types:
+          - minor
+          - patch
