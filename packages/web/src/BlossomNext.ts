@@ -1,5 +1,5 @@
 import { COMMANDS } from "@blossom-carousel/navigation";
-import { connectNavigation, getForId } from "./navigation";
+import { connectNavigation, ensureNavButton, getForId } from "./navigation";
 
 const HTMLElementBase: typeof HTMLElement =
   typeof HTMLElement === "undefined"
@@ -12,19 +12,11 @@ export class BlossomNext extends HTMLElementBase {
 
   connectedCallback(): void {
     const forId = getForId(this);
-    this.button = document.createElement("button");
-    this.button.type = "button";
+    this.button = ensureNavButton(this, "Next");
     this.button.setAttribute("command", COMMANDS.next);
     this.button.setAttribute("commandfor", forId);
     this.button.setAttribute("aria-controls", forId);
     this.button.setAttribute("aria-label", "Next slide");
-
-    const content = this.childNodes.length > 0
-      ? Array.from(this.childNodes)
-      : [document.createTextNode("Next")];
-    
-    this.button.replaceChildren(...content);
-    this.replaceChildren(this.button);
 
     this.cleanup = connectNavigation(forId, (state) => {
       if (this.button) this.button.disabled = !state.canNext;

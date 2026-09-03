@@ -9,7 +9,7 @@ export default defineConfig({
   plugins: [
     dts({
       include: ["src/**/*"],
-      exclude: ["vite.config.ts"],
+      exclude: ["vite.config.ts", "src/**/*.test.ts"],
     }),
   ],
   build: {
