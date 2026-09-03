@@ -2,6 +2,13 @@
 
 All notable changes to `@blossom-carousel/vue` are documented in this file.
 
+## 1.6.0 (2026-09-02)
+
+### Added
+
+- Exported `useNavigation` and the `NavigationState` type so custom Vue controls can read `canPrev`, `canNext`, `activeIndex`, and `count`.
+- `useNavigation` now accepts a `MaybeRef<string | undefined>`, so callers can pass a plain id such as `useId()` without wrapping it in `ref()`.
+
 ## 1.5.3 (2026-07-28)
 
 ### Fixed

@@ -2,6 +2,17 @@
 
 All notable changes to `@blossom-carousel/web` are documented in this file.
 
+## 1.5.0 (2026-09-02)
+
+### Added
+
+- `<blossom-next>` and `<blossom-prev>` keep author-provided HTML such as SVG icons instead of flattening children to text.
+
+### Fixed
+
+- Empty or whitespace-only content still falls back to the default `Next` / `Previous` labels.
+- Reconnecting the custom elements reuses the existing inner button instead of nesting another one.
+
 ## 1.4.2 (2026-07-28)
 
 ### Fixed

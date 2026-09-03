@@ -53,10 +53,13 @@ import "@blossom-carousel/web/style.css";
 #### Prev/Next Buttons
 `<blossom-prev>` and `<blossom-next>` are aware of configured scroll-snap and will navigate between snap points. When no scroll-snap is configured, they will slide the carousel proportionally.
 
-Set text content on the element to replace the default button icon.
+Set text or HTML (for example an SVG icon) on the element to replace the default button label. Empty or whitespace-only content still falls back to `Previous` / `Next`.
 
 ```html
 <blossom-prev for="my-carousel">Previous</blossom-prev>
+<blossom-next for="my-carousel">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4l8 8-8 8" /></svg>
+</blossom-next>
 ```
 
 #### Dots

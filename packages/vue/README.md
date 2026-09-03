@@ -85,6 +85,22 @@ Slot your own content to replace the default button icon.
 </BlossomPrev>
 ```
 
+#### Custom navigation UI
+
+`useNavigation` exposes the same reactive state the built-in controls use. Pass a string, a `ref`, or `undefined`:
+
+```html
+<script setup>
+import { useId } from "vue";
+import { useNavigation } from "@blossom-carousel/vue";
+
+const carouselId = useId();
+const state = useNavigation(carouselId);
+</script>
+```
+
+`state` is a ref with `canPrev`, `canNext`, `activeIndex`, and `count`.
+
 #### Dots
 `<BlossomDots>` renders one button per slide marked with `data-blossom-slide`.
 Default styles can be themed with CSS custom properties on the component or any ancestor:
@@ -146,6 +162,7 @@ import {
   BlossomNext,
   BlossomDots,
   BlossomDot,
+  useNavigation,
 } from "@blossom-carousel/vue";
 import "@blossom-carousel/vue/style.css";
 
